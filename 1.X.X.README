@@ -1,0 +1,5 @@
+IMPLEMENTATION
+
+In order to add 1.X.X to your site, please download the 1.X.X JavaScript file, host a copy on your domain, and include it inside your code ABOVE the Google Analytics Tracking Code.
+
+IF YOU DO NOT INCLUDE THE SCRIPT ABOVE THE GATC, DIRECT MONSTER WILL NOT FUNCTION AS INTENDED.
