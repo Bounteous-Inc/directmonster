@@ -14,6 +14,9 @@ Analytics tracking code. To check, it should look something like this:
 
 </script>
 
+DirectMonster passes parameters using anchors, but by default, Google Analytics doesn't recognize
+anchored parameters. You will need to add {'allowAnchor': true} at the end of your ga('create') call.
+
 You will need to make two customizations to your code. The first will be to call a ga 
 function that passes 'premonster()'.
 
@@ -41,7 +44,7 @@ for DirectMonster to function as intended.
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-XXXXXXX-X 'yoursite.com');
+    ga('create', 'UA-XXXXXXX-X 'yoursite.com', {'allowAnchor': true});
 
     ga(preMonster());
   
