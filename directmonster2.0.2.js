@@ -373,10 +373,16 @@ function getBestInfo() {
         for (i = 0; i < queryParams.length; i++) {
             if (queryParams[i].indexOf('gclid') > -1 || queryParams[i].indexOf('dclid') > -1) {
                 if (queryParams[i].indexOf('gclid') > -1) {
-                    gclid = queryParams[i].split('=')[1];
+                    //gclid = queryParams[i].split('=')[1];    //Currently, Universal Analytics is not accepting anchored gclids
+                    source = 'google';
+                    medium = 'cpc';
+                    content = queryParams[i].split('=')[1];
                 }
                 if (queryParams[i].indexOf('dclid') > -1) {
-                    dclid = queryParams[i].split('=')[1];
+                    //dclid = queryParams[i].split('=')[1];    //Currently, Universal Analytics is not accepting anchored dclids
+                    source = 'google';
+                    medium = 'display';
+                    content = queryParams[i].split('=')[1];
                 }
                 if (document.referrer.indexOf('google.com') > -1) {    //check the referrer for the term
                     term = document.referrer.split(/&q=|\?q=|#q=/)[1].split(/&/)[0];
