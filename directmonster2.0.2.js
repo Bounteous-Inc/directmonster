@@ -29,7 +29,7 @@ var enginesAndQueryParams = "daum:q= eniro:search_word= naver:query= pchome:q= i
 
 var urlRefc = '';
 if (document.location.href.indexOf('&rf=') > -1) {
-    urlRefc = document.location.href.split('&rf=')[1].split(/&/)[0];
+    urlRefc = document.location.href.split('&rf=')[1].split(/[&,?]/)[0];
 }
 var cookieC = '';
 if (document.cookie.indexOf('_ga=') > -1) {
