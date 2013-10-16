@@ -1,17 +1,4 @@
-//************************************************//
-//*                   .... ....                  *//
-//*                  |    v o  |                 *//
-//*                **\__o_^____/**               *//
-//*            ***********************           *//
-//*          ***_*.*.*.*.*.*.*.*.*.*_***         *//
-//*          ***\0000000000000000000/***         *//
-//*           ***\00000000000000000/***          *//
-//*            ***\000000000000000/***           *//
-//*               ***\0.0.0.0.0/***              *//
-//*                 *************                *//
-//*                                              *//
 //*               directmonster.js               *//
-//*                                              *//
 //***************By LunaMetrics LLC***************//
 //********** http://www.lunametrics.com/ *********//
 //***********************&************************//
@@ -19,7 +6,7 @@
 //************version 1.3.3 August 2013***********//
 
 //In order for this script to function properly, it needs to be placed above the GA tracking code
-//This version of DirectMonster works with the asynchronous code.
+//This version of DirectMonster only works with the asynchronous code.
 
 //This software is licensed under the MIT License
 //https://github.com/lunametrics/directmonster/blob/master/LICENSE
