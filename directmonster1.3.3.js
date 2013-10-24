@@ -1,3 +1,4 @@
+(function() {
 //*               directmonster.js               *//
 //***************By LunaMetrics LLC***************//
 //********** http://www.lunametrics.com/ *********//
@@ -388,3 +389,4 @@ function directMonsterCatch() {
 }
 
 var shutItDown = setTimeout(directMonsterCatch, 10000);
+})();
