@@ -21,7 +21,7 @@ var URLnewHash = '';
 var i = '';
 var getReferrer    = '';
 var foundSearchEngine = false;
-var ownedHostnames = document.location.hostname.replace('www','');        //Domain names you own to prevent self-referrals, can be a RegEx
+var ownedHostNames = document.location.hostname.replace('www','');        //Domain names you own to prevent self-referrals, can be a RegEx
 if (document.referrer !== '') {        //Check if we have referrer information
     getReferrer = document.referrer.replace('www.', '').split(/:\/\//)[1].split('/')[0];    //Let's cut up whatever referrer information we have into something usable
 }
