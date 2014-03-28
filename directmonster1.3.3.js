@@ -1,5 +1,17 @@
-(function() {
+//************************************************//
+//*                   .... ....                  *//
+//*                  |    v o  |                 *//
+//*                **\__o_^____/**               *//
+//*            ***********************           *//
+//*          ***_*.*.*.*.*.*.*.*.*.*_***         *//
+//*          ***\0000000000000000000/***         *//
+//*           ***\00000000000000000/***          *//
+//*            ***\000000000000000/***           *//
+//*               ***\0.0.0.0.0/***              *//
+//*                 *************                *//
+//*                                              *//
 //*               directmonster.js               *//
+//*                                              *//
 //***************By LunaMetrics LLC***************//
 //********** http://www.lunametrics.com/ *********//
 //***********************&************************//
@@ -7,7 +19,7 @@
 //************version 1.3.3 August 2013***********//
 
 //In order for this script to function properly, it needs to be placed above the GA tracking code
-//This version of DirectMonster only works with the asynchronous code.
+//This version of DirectMonster works with the asynchronous code.
 
 //This software is licensed under the MIT License
 //https://github.com/lunametrics/directmonster/blob/master/LICENSE
@@ -251,7 +263,7 @@ function remixed(paramBits) {    //This function encodes campaign parameter info
 }
 
 function slbDecode() {    //This function decodes encoded parameters stored in the URL
-	if (window.location.hash.indexOf('g=') > -1) {
+    if (window.location.hash.indexOf('g=') > -1) {
         gclid = 'gclid=' + demixed(window.location.hash.split('g=')[1].split(/&m=|&cp=|&ct=|&st=|&ts=/)[0]);
     }
     if (window.location.hash.indexOf('d=') > -1) {
@@ -268,47 +280,47 @@ function slbDecode() {    //This function decodes encoded parameters stored in t
     }
     if (window.location.hash.indexOf('ct=') > -1) {
         content = '&utm_content=' + demixed(window.location.hash.split('ct=')[1].split(/&m=|&cp=|&ct=|&st=|&ts=/)[0]);
-	} else {
+    } else {
         content = '&utm_content=-slb';
-	}
+    }
     if (window.location.hash.indexOf('st=') > -1) {
         term = '&utm_term=' + demixed(window.location.hash.split('st=')[1].split(/&m=|&cp=|&ct=|&st=|&ts=/)[0]);
     }
-	if (isNaN(window.location.hash.split('&ts=')[1]) === true){
-		timestamp = '&ts=0';
-	} else {
-		timestamp = '&ts=' + window.location.hash.split('&ts=')[1];
-	}
+    if (isNaN(window.location.hash.split('&ts=')[1]) === true){
+        timestamp = '&ts=0';
+    } else {
+        timestamp = '&ts=' + window.location.hash.split('&ts=')[1];
+    }
     var fixedHash = dclid + gclid + source + medium + campaign + term + content + timestamp;
     window.location.hash = fixedHash;
 }
 
 function correctContentCheck() {    //This function is to a fallback ensure correct campaign information on a shared visit
-	if (window.location.hash.indexOf('utm_content') > -1) {
-	    var checkContent = window.location.hash.split('&utm_content=')[1].split(/&m=|&cp=|&ct=|&st=|&ts=/)[0];    //Is there already a utm_content parameter?
-		if (checkContent.indexOf('-slb') === -1) {
-		    var fixedHash = window.location.hash.split('&utm_content=')[0] + '&utm_content=' + checkContent + window.location.hash.substring(window.location.hash.indexOf('&utm_content=') + checkContent.length + 13);
-			window.location.hash = fixedHash;
-		}
-	} else {
-		var fixedHash = window.location.hash + '&utm_content=-slb';
-		window.location.hash = fixedHash;
-	}
+    if (window.location.hash.indexOf('utm_content') > -1) {
+        var checkContent = window.location.hash.split('&utm_content=')[1].split(/&m=|&cp=|&ct=|&st=|&ts=/)[0];    //Is there already a utm_content parameter?
+        if (checkContent.indexOf('-slb') === -1) {
+            var fixedHash = window.location.hash.split('&utm_content=')[0] + '&utm_content=' + checkContent + window.location.hash.substring(window.location.hash.indexOf('&utm_content=') + checkContent.length + 13);
+            window.location.hash = fixedHash;
+        }
+    } else {
+        var fixedHash = window.location.hash + '&utm_content=-slb';
+        window.location.hash = fixedHash;
+    }
 }
 
 function referrerNoGo() {    //This function is to determine what to do with stored URL parameters if there is no referral information
     if (currTimeStInURL !== parseInt(new StringInArraySplit(strungCookies, 'utma=', /\./g)[2], 10)) {    //Current timestamp doesn't match the one in the URL
-		var decodedHashedParamIndicators = /#utm_gclid=|#utm_dclid=|#utm_source=/;
-	    if (window.location.href.search(decodedHashedParamIndicators) > -1) {     //Are the parameters decoded?
-			correctContentCheck();
-		} else {
-		    slbDecode();    //decode those params
-		}	
-	}
+        var decodedHashedParamIndicators = /#utm_gclid=|#utm_dclid=|#utm_source=/;
+        if (window.location.href.search(decodedHashedParamIndicators) > -1) {     //Are the parameters decoded?
+            correctContentCheck();
+        } else {
+            slbDecode();    //decode those params
+        }   
+    }
 }
 
 function checkForHashedParamsFunc() {
-	var checkForHashedParams = /#sr=|#g=|#d=|#dclid=|#gclid=|#utm_source=/;
+    var checkForHashedParams = /#sr=|#g=|#d=|#dclid=|#gclid=|#utm_source=/;
     if (window.location.hash.search(checkForHashedParams) > -1 && getReferrer === '') {
         referrerNoGo();
     }
@@ -318,7 +330,7 @@ _gaq.push([checkForHashedParamsFunc()]);
 
 function directMonster() {
     strungCookies = document.cookie.replace(/ /g, '+').toString().split(';');    //Get new cookie variables now that GA has fired
-    var getUTMZ = new StringInArraySplit(strungCookies, 'utmz', /[\|,\.]/g);
+    var getUTMZ = new StringInArraySplit(strungCookies, 'utmz=', /[\|,\.]/g);
     timestamp = '&ts=' + new StringInArraySplit(strungCookies, 'utma=', /\./g)[2];
     var i = 0;
     for (i = 0; i < getUTMZ.length; i++) {    //Finds each campaign parameter in the cookie and assigns it to the appropriate variable
@@ -372,7 +384,7 @@ function directChecker() {
     var sessionTSRefreshed = parseInt(new StringInArraySplit((document.cookie.replace(/ /g, '+').toString().split(';')), 'utmb=', /\./g)[3], 10);
     if (isNaN(pvCounterRefreshed) === false) {
         if (pvCounterOnLanding !== pvCounterRefreshed || (sessionTSRefreshed - sessionTS) > 0) {
-			_gaq.push([directMonster()]);
+            _gaq.push([directMonster()]);
             clearInterval(startItUp);
             directMonsterFired = true;
         }
@@ -389,4 +401,3 @@ function directMonsterCatch() {
 }
 
 var shutItDown = setTimeout(directMonsterCatch, 10000);
-})();
