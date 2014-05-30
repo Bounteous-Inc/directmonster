@@ -1,0 +1,33 @@
+IMPLEMENTATION
+
+Place above the Google Analytics Tracking Code; if using Google Tag Manager, use a rule and dataLayer push to load dmc.js before Google Analytics.
+
+NORMAL CONFIGURATION
+
+<script src='[...]/dmc.js'></script>
+<script type="text/javascript"> // Google Analytics Classic Tracking Code
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-XXXXXXX-X’]);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+CROSS-USER CONFIGURATION
+
+<script>
+  (function(w,a,t){w['_dm'] = window._dm || {}; _dm.i = window._dm.i || {id:a,assist:t}; window['_gaq'] = window._gaq || [];_gaq.push(['_setAllowAnchor', true]);})
+  (window, 'OptIdCustVar', 'OptAssistIdCustVar');
+</script>
+<script src='[...]/dmc.js'></script>
+<script>
+// NORMAL GOOGLE ANALYTICS TRACKING CODE HERE
+</script>
+
+Replace 'OptIdCustVar' with the slot number of an available visitor-level custom variable. DirectMonster will capture the unique identifier used by Google Analytics stored in the __utma cookie and send it back to your account as a visitor-level custom variable named ‘Visitor ID’. An example value would be “1301384433.1401027739”. Because it is a visitor-level custom variable, this slot should be empty and cannot be used for anything else. This is the same identifier that DirectMonster stores in the URL to identify visits referred by this particular visitor.
+
+Replace ‘OptAssistIdCustVar’ with the slot number of a session-level (visit-level) custom variable. DirectMonster will capture any unique identifiers it sees in a URL before the page loads and send them to Google Analytics as a session-level custom variable. An example value would be “2024198933.1396065030”. This is the value that DirectMonster stores in the URL to identify visits referred by another visitor. When a page view happens, if DirectMonster sees that the value stored in the __utma cookie is different than the value stored in the URL being requested, it will set this custom variable. This allows you to see what users refer whom to your site inside a custom report. Create a report with Custom Variable Value 04 set as the primary dimension; the visits, revenue, and other metrics you see will all be the visitors referred by the ID stored in the Custom Variable Value 04 column.

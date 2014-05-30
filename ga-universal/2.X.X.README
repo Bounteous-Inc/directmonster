@@ -1,0 +1,75 @@
+IMPLEMENTATION
+
+To implement 2.X.X, you'll need to first ensure that your tracking code is the Universal 
+Analytics tracking code. To check, it should look something like this:
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-XXXXXXXX-X', 'yourwebsite.com');
+  ga('send', 'pageview');
+
+</script>
+
+DirectMonster passes parameters using anchors, but by default, Google Analytics doesn't recognize
+anchored parameters. You will need to add {'allowAnchor': true} at the end of your ga('create') call.
+
+You will need to make two customizations to your code. The first will be to call a ga 
+function that passes 'premonster()'.
+
+It is vital that this call occurs above the ga('send', 'pageview') call; if not, 
+DirectMonster will not function as intended.
+
+Next, you'll need to configure two Custom Dimensions in your Universal Analytics:
+one to capture the visitors CID, the second to capture an assisting referrer CID.
+These will have to come after the pageview, so that there will be a _ga cookie set
+on the browser that it can reference for the users CID.
+
+Then, you'll need to fire a pageview for the custom dimensions to hitch a ride on into
+Analytics. Since they need to be defined after the pageview, they cannot be passed along
+with the pageview, so this 'hitcher' pageview is a necessary evil.
+
+Finally, you'll need to call the dirMonURL function and pass it the client ID. This function
+recompiles a fresh set of stored parameters for the visitor and places them in the URL.
+
+Below is an example of how your Universal Analytics configuration should look in order
+for DirectMonster to function as intended.
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-XXXXXXX-X 'yoursite.com', {'allowAnchor': true});
+
+    ga(preMonster());
+  
+    ga('send', 'pageview');
+	
+    ga(function(tracker) {
+        ga('set', 'dimensionX', tracker.get('clientId'));
+    });
+
+	  if (urlRefc !== '' && urlRefc !== cookieC){
+        ga('set', 'dimensionX', urlRefc);
+   	}
+
+    ga('send', 'event', 'DirectMonster 2.0', 'Dimension hitcher event', '', 0, {'nonInteraction': 1});
+
+	  ga(function(tracker) {
+        var clientId = tracker.get('clientId');
+        dirmonURL(clientId);
+    });
+
+SELF-REFERRAL DIRECTMONSTER CONSIDERATIONS
+
+The last step you'll need to take is to configure the 'ownedHostnames' variable inside
+your version of DirectMonster. By default, it will not store the hostname of the domain
+that it is hosted on.
+
+In order to do this, open up the script and navigate to the ownedHostnames. Define the variable
+to include any hostnames you would consider as self-referrals inside your analytics.
